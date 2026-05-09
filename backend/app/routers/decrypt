@@ -1,14 +1,15 @@
 from fastapi import APIRouter, HTTPException
 from app.services import decrypt_service
+from app.schemas.payload import DecryptPayloadRequest
 
 router = APIRouter(tags=["decrypt"])
 
 
-@router.post("/")
+@router.post("/decrypt")
 
-async def post_payload(payload: str, key: str):
+def post_payload_to_decrypt(request: DecryptPayloadRequest):
     try: 
-        decrypted_res = await decrypt_service.decrypt_payload(payload, key)
+        decrypted_res = decrypt_service.decrypt_payload(request.payload, request.decryption_key)
         print(decrypted_res)
         return decrypted_res
 

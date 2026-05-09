@@ -1,0 +1,17 @@
+from fastapi import APIRouter, HTTPException
+from app.services import encrypt_service
+from app.schemas.payload import EncryptPayloadRequest
+
+router = APIRouter(tags=["encrypt"])
+
+
+@router.post("/encrypt")
+
+def post_payload_to_encrypt(request: EncryptPayloadRequest):
+    try: 
+        encrypted_res = encrypt_service.encrypt_payload(request.payload, request.encryption_key)
+        print(encrypted_res)
+        return encrypted_res
+
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err))
