@@ -1,0 +1,18 @@
+from cryptography.fernet import Fernet
+
+def decrypt_payload(payload, key):
+    # convert str to bytes before encryption
+    payload_bytes = payload.encode('utf-8')
+    try:
+        f = Fernet(key)
+        decrypted_bytes = f.decrypt(payload_bytes)
+        decrypted_payload = decrypted_bytes.decode('utf-8')
+        return decrypted_payload
+        
+    
+        
+    
+
+    # convert bytes to str before return
+    except Exception as e:
+        return f"{e}: Unable to decrypt payload. Check the payload and key."
