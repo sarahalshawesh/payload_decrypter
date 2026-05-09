@@ -1,0 +1,17 @@
+from fastapi import APIRouter, HTTPException
+
+
+router = APIRouter(tags=["post"])
+
+
+@router.post("/decrypt")
+
+def post_payload():
+    try: 
+        decrypted_res = decrypt_service.decrypt_payload()
+        print(decrypted_res)
+        return decrypted_res
+
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err))
+
