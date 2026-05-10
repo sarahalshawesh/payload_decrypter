@@ -10,8 +10,7 @@ router = APIRouter(tags=["encrypt"])
 def post_payload_to_encrypt(request: EncryptPayloadRequest):
     try: 
         encrypted_res = encrypt_service.encrypt_payload(request.payload, request.encryption_key)
-        print(encrypted_res)
-        return encrypted_res
-
+        return { "success": True, "encrypted_res": encrypted_res}
+    
     except ValueError as err:
         raise HTTPException(status_code=400, detail=str(err))
