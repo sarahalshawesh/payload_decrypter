@@ -9,11 +9,15 @@ const [decryptedPayload, setDecryptedPayload] = useState('')
   return (
     <main>
       <h1>Payload Decryption Tool</h1>
-      <div>
+      <form>
+        <label>Payload to decrypt</label>
+        <input 
+        type="text"
+        onChange={(e) => setDecryptedPayload(e.target.value)}></input>
         <button>
           Run
         </button>
-      </div>
+      </form>
     </main>
   )
 }
