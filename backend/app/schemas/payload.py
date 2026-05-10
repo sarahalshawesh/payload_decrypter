@@ -8,3 +8,4 @@ class DecryptPayloadRequest(BaseModel):
 class EncryptPayloadRequest(BaseModel):
     decrypted_payload: str
     encryption_key: str
+
