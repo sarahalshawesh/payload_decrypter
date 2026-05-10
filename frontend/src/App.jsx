@@ -10,16 +10,17 @@ function App() {
     const formData = new FormData();
     formData.append("encrypted_payload", encryptedPayload);
     formData.append("fernet_key", fernetKey);
+    try {
+      const res = await fetch("http://127.0.0.1:8000/decrypt", {
+        body: formData, 
+        method: "POST"});
+    }
+    catch (err) {
+      console.log(err)
+    }
   }
 
-  try {
-    const res = await fetch("http://127.0.0.1:8000/decrypt", {
-      body: formData, 
-      method: "POST"});
-  }
-  catch (err) {
-    print(err)
-  }
+  
     return (
       <main>
         <h1>Payload Decryption Tool</h1>
