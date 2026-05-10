@@ -9,7 +9,7 @@ router = APIRouter(tags=["decrypt"])
 
 def post_payload_to_decrypt(request: DecryptPayloadRequest):
     try: 
-        decrypted_res = decrypt_service.decrypt_payload(request.encrypted_payload, request.decryption_key)
+        decrypted_res = decrypt_service.decrypt_payload(request.encrypted_payload, request.fernet_key)
         return { "success": True, "decrypted_res": decrypted_res}
 
     except ValueError as err:
