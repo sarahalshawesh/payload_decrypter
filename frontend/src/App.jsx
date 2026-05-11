@@ -34,7 +34,7 @@ function App() {
           <br></br>
           <input 
             type="text"
-            onChange={(e) => setDecryptedPayload(e.target.value)}>
+            onChange={(e) => setEncryptedPayload(e.target.value)}>
           </input>
           <br></br>
           <label>Key</label>
