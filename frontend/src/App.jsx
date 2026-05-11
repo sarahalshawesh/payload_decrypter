@@ -7,13 +7,15 @@ function App() {
   const [decryptedPayload, setDecryptedPayload] = useState('');
 
   async function sendRequest() {  
-    const formData = new FormData();
-    formData.append("encrypted_payload", encryptedPayload);
-    formData.append("fernet_key", fernetKey);
+    const data = {"encrypted_payload": encryptedPayload, "fernet_key": fernetKey}
     try {
       const res = await fetch("http://127.0.0.1:8000/decrypt", {
-        body: formData, 
-        method: "POST"});
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data), 
+        method: "POST"})
     }
     catch (err) {
       console.log(err)
