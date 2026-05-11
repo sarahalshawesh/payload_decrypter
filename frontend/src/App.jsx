@@ -34,11 +34,10 @@ function App() {
           <label 
             htmlFor="encrypted-payload">Payload to decrypt</label>
           <br></br>
-          <input 
+          <textarea 
             id="encrypted-payload"
-            type="textarea"
             onChange={(e) => setEncryptedPayload(e.target.value)}>
-          </input>
+          </textarea>
           <br></br>
           <label
             htmlFor="decryption-key">
@@ -52,6 +51,7 @@ function App() {
           </input>
           <br></br>
           <button
+            type="button"
             onClick={(sendRequest)}>
             Run
           </button>
