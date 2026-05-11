@@ -9,9 +9,9 @@ function App() {
 
  
   async function sendRequest() {  
-    setRequestError('')
-    setDecryptedPayload('')
-    const data = {"encrypted_payload": encryptedPayload, "fernet_key": fernetKey}
+    setRequestError('');
+    setDecryptedPayload('');
+    const data = {"encrypted_payload": encryptedPayload, "fernet_key": fernetKey};
     try {
       const res = await fetch("http://127.0.0.1:8000/decrypt", {
         headers: {
@@ -19,21 +19,23 @@ function App() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data), 
-        method: "POST"})
-        const parsedRes = await res.json()
+        method: "POST"});
+        const parsedRes = await res.json();
       if (res.ok) {
-        setDecryptedPayload(parsedRes.decrypted_res)
+        const parsedJson = parsedRes.decrypted_res;
+        const formattedJson = JSON.stringify(parsedJson, null, 2);
+        setDecryptedPayload(formattedJson);
       } else {
-        console.log(res.status)
-        console.log(parsedRes.detail)
-        setRequestError(parsedRes.detail)
+        console.log(res.status);
+        console.log(parsedRes.detail);
+        setRequestError(parsedRes.detail);
       }
     }
     catch (err) {
-      console.log(err)
-      console.log("Unable to connect to backend. Check the API is running.")
+      console.log(err);
+      console.log("Unable to connect to backend. Check the API is running.");
     }
-  }
+  };
 
   
     return (
