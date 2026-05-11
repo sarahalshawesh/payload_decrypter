@@ -58,6 +58,7 @@ function App() {
           <input
             id="decryption-key"
             type="text"
+            autoComplete="off"
             onChange={(e) => setFernetKey(e.target.value)}>
           </input>
           <br></br>
