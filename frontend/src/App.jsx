@@ -7,10 +7,28 @@ function App() {
   const [decryptedPayload, setDecryptedPayload] = useState('');
   const [requestError, setRequestError] = useState('');
 
+  function validateForm() {
+    if (!encryptedPayload.trim()) {
+      return 'Please enter a payload.'
+    }
+
+    if (!fernetKey.trim()) {
+      return 'Please enter a decryption key.'
+    }
+
+    return ''
+  }
  
   async function sendRequest() {  
     setRequestError('');
     setDecryptedPayload('');
+    const validationError = validateForm()
+
+    if (validationError) {
+      setRequestError(validationError)
+      return
+    }
+    
     const data = {"encrypted_payload": encryptedPayload, "fernet_key": fernetKey};
     try {
       const res = await fetch("http://127.0.0.1:8000/decrypt", {
