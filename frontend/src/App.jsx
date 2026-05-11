@@ -5,6 +5,7 @@ function App() {
   const [fernetKey, setFernetKey] = useState('');
   const [encryptedPayload, setEncryptedPayload] = useState('');
   const [decryptedPayload, setDecryptedPayload] = useState('');
+  const [requestError, setRequestError] = useState('');
 
   async function sendRequest() {  
     const data = {"encrypted_payload": encryptedPayload, "fernet_key": fernetKey}
@@ -22,6 +23,7 @@ function App() {
       } else {
         console.log(res.status)
         console.log(parsedRes.detail)
+        setRequestError(parsedRes.detail)
       }
     }
     catch (err) {
@@ -60,6 +62,7 @@ function App() {
           </button>
         </form>
         {decryptedPayload && <p>{decryptedPayload}</p>}
+        {requestError && <p>{requestError}</p>}
       </main>
     )
 }
