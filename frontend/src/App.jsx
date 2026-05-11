@@ -31,16 +31,22 @@ function App() {
       <main>
         <h1>Payload Decryption Tool</h1>
         <form>
-          <label>Payload to decrypt</label>
+          <label 
+            htmlFor="encrypted-payload">Payload to decrypt</label>
           <br></br>
           <input 
-            type="text"
+            id="encrypted-payload"
+            type="textarea"
             onChange={(e) => setEncryptedPayload(e.target.value)}>
           </input>
           <br></br>
-          <label>Key</label>
+          <label
+            htmlFor="decryption-key">
+            Key
+          </label>
           <br></br>
           <input
+            id="decryption-key"
             type="text"
             onChange={(e) => setFernetKey(e.target.value)}>
           </input>
