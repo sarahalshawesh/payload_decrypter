@@ -18,7 +18,7 @@ function App() {
         method: "POST"})
       if (res.ok) {
         const parsedRes = await res.json()
-        setDecryptedPayload(parsedRes.decrypted_payload)
+        setDecryptedPayload(parsedRes.decrypted_res)
       }
     }
     catch (err) {
