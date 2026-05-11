@@ -16,6 +16,9 @@ function App() {
         },
         body: JSON.stringify(data), 
         method: "POST"})
+      if (res.ok) {
+        setDecryptedPayload(res.decryptedPayload)
+      }
     }
     catch (err) {
       console.log(err)
@@ -46,6 +49,7 @@ function App() {
             Run
           </button>
         </form>
+        {decryptedPayload && <p>{decryptedPayload}</p>}
       </main>
     )
 }
