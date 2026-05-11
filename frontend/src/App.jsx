@@ -7,7 +7,10 @@ function App() {
   const [decryptedPayload, setDecryptedPayload] = useState('');
   const [requestError, setRequestError] = useState('');
 
+ 
   async function sendRequest() {  
+    setRequestError('')
+    setDecryptedPayload('')
     const data = {"encrypted_payload": encryptedPayload, "fernet_key": fernetKey}
     try {
       const res = await fetch("http://127.0.0.1:8000/decrypt", {
@@ -28,6 +31,7 @@ function App() {
     }
     catch (err) {
       console.log(err)
+      console.log("Unable to connect to backend. Check the API is running.")
     }
   }
 
@@ -61,8 +65,9 @@ function App() {
             Run
           </button>
         </form>
-        {decryptedPayload && <p>{decryptedPayload}</p>}
-        {requestError && <p>{requestError}</p>}
+        <h3>Decrypted Payload</h3>
+        {decryptedPayload && <pre>{decryptedPayload}</pre>}
+        {requestError && <pre>{requestError}</pre>}
       </main>
     )
 }
