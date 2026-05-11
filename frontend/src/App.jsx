@@ -46,7 +46,7 @@ function App() {
       } else {
         console.log(res.status);
         console.log(parsedRes.detail);
-        setRequestError(parsedRes.detail);
+        setRequestError(parsedRes.detail || "Unable to decrypt payload.");
       }
     }
     catch (err) {
