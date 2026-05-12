@@ -38,9 +38,11 @@ function App() {
         method: "POST"});
         
       if (res.ok) {
-        const formattedPayload = await formatJson(res)
+        const parsedRes = await res.json();
+        const formattedPayload = formatJson(parsedRes)
         setDecryptedPayload(formattedPayload)
       } else {
+        const parsedRes = await res.json();
         console.log(res.status);
         console.log(parsedRes.detail);
         setRequestError(parsedRes.detail || "Unable to decrypt payload.");
@@ -53,18 +55,13 @@ function App() {
     }
   };
 
-  async function formatJson(res) {
+  function formatJson(parsedRes) { 
     try {
-      const parsedRes = await res.json();
-      if (typeof parsedRes.decrypted_res == "object") {
-        const formattedJson = JSON.stringify(parsedJson, null, 2);
-        return formattedJson;
-      } else {
-        return parsedRes
-      }
-    } 
-    catch (err) {
-
+      parsedJson = JSON.parse(parsedRes.decrypted_res)
+      const formattedJson = JSON.stringify(parsedJson, null, 2);
+      return formattedJson;
+    } catch {
+      return parsedRes
     }
   }
 
