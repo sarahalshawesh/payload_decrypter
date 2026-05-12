@@ -38,8 +38,8 @@ function App() {
         method: "POST"});
         
       if (res.ok) {
-        formatJson(res)
-        
+        const formattedPayload = await formatJson(res)
+        setDecryptedPayload(formattedPayload)
       } else {
         console.log(res.status);
         console.log(parsedRes.detail);
