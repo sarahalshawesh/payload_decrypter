@@ -11,23 +11,21 @@ function App() {
     if (!encryptedPayload.trim()) {
       return 'Please enter a payload.'
     }
-
     if (!fernetKey.trim()) {
       return 'Please enter a decryption key.'
     }
-
     return ''
-  }
+  };
  
   async function sendRequest() {  
     setRequestError('');
     setDecryptedPayload('');
-    const validationError = validateForm()
+    const validationError = validateForm();
 
     if (validationError) {
-      setRequestError(validationError)
+      setRequestError(validationError);
       return
-    }
+    };
     
     const data = {"encrypted_payload": encryptedPayload, "fernet_key": fernetKey};
     try {
@@ -38,11 +36,10 @@ function App() {
         },
         body: JSON.stringify(data), 
         method: "POST"});
-        const parsedRes = await res.json();
+        
       if (res.ok) {
-        const parsedJson = parsedRes.decrypted_res;
-        const formattedJson = JSON.stringify(parsedJson, null, 2);
-        setDecryptedPayload(formattedJson);
+        formatJson(res)
+        
       } else {
         console.log(res.status);
         console.log(parsedRes.detail);
@@ -52,10 +49,25 @@ function App() {
     catch (err) {
       console.log(err);
       console.log("Unable to connect to backend. Check the API is running.");
+      setRequestError('Unable to connect to backend. Check the API is running.')
     }
   };
 
-  
+  async function formatJson(res) {
+    try {
+      const parsedRes = await res.json();
+      if (typeof parsedRes.decrypted_res == "object") {
+        const formattedJson = JSON.stringify(parsedJson, null, 2);
+        return formattedJson;
+      } else {
+        return parsedRes
+      }
+    } 
+    catch (err) {
+
+    }
+  }
+
     return (
       <main>
         <h1>Payload Decryption Tool</h1>
