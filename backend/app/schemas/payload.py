@@ -6,6 +6,6 @@ class DecryptPayloadRequest(BaseModel):
     fernet_key: str
 
 class EncryptPayloadRequest(BaseModel):
-    decrypted_payload: str
+    payload: str
     fernet_key: str
 

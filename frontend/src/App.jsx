@@ -10,6 +10,8 @@ function App() {
   const [decryptedPayload, setDecryptedPayload] = useState('');
   // stores any errors to display to the user
   const [requestError, setRequestError] = useState('');
+  // stores boolean value whether the request was successful or not
+  const [isDecryptionSuccessful, setIsDecryptionSuccessful] = useState(Boolean);
 
   // validates the users input before sending to the backend
   function validateForm() {
@@ -54,6 +56,7 @@ function App() {
         // Formats the JS object if it's valid JSON
         const formattedPayload = formatJson(parsedRes)
         setDecryptedPayload(formattedPayload)
+        setIsDecryptionSuccessful(true)
       } else {
         // Transforms error into JS object
         const parsedRes = await res.json();
@@ -61,6 +64,7 @@ function App() {
         console.log(parsedRes.detail);
         // Displays to the user the error message or a fallback error message
         setRequestError(parsedRes.detail || "Unable to decrypt payload.");
+        setIsDecryptionSuccessful(false);
       }
     }
     catch (err) {
@@ -118,10 +122,14 @@ function App() {
           </button>
         </form>
 
-        <h3>Decrypted Payload</h3>
+        {isDecryptionSuccessful && <p>Success</p>}
         
+
+        <h3>Decrypted Payload</h3>
+
         {decryptedPayload && <pre>{decryptedPayload}</pre>}
         {requestError && <pre>{requestError}</pre>}
+
       </main>
     )
 }
