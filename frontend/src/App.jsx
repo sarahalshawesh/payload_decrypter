@@ -57,7 +57,7 @@ function App() {
 
   function formatJson(parsedRes) { 
     try {
-      parsedJson = JSON.parse(parsedRes.decrypted_res)
+      const parsedJson = JSON.parse(parsedRes.decrypted_res)
       const formattedJson = JSON.stringify(parsedJson, null, 2);
       return formattedJson;
     } catch {
