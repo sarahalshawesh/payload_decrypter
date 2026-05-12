@@ -61,7 +61,7 @@ function App() {
       const formattedJson = JSON.stringify(parsedJson, null, 2);
       return formattedJson;
     } catch {
-      return parsedRes
+      return parsedRes.decrypted_res
     }
   }
 
